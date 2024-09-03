@@ -31,18 +31,20 @@ import json
 with open('faturamento.json', 'r') as file:
     data = json.load(file)
 
-faturamento_diario = data['faturamento_diario']
+faturamento_diario = [dia["valor"] for dia in data]
+
 dias_validos = [valor for valor in faturamento_diario if valor > 0]
+
 media_mensal = sum(dias_validos) / len(dias_validos) if dias_validos else 0
 
 menor_faturamento = min(dias_validos) if dias_validos else 0
 maior_faturamento = max(dias_validos) if dias_validos else 0
+
 dias_acima_da_media = len([valor for valor in dias_validos if valor > media_mensal])
 
 print(f"Menor valor de faturamento: R${menor_faturamento:.2f}")
 print(f"Maior valor de faturamento: R${maior_faturamento:.2f}")
 print(f"Número de dias com faturamento acima da média: {dias_acima_da_media}")
-
 
 # 4) Percentual de representação por estado
 # Dados de faturamento por estado
